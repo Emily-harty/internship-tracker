@@ -1,65 +1,63 @@
-import Image from "next/image";
+// 1. Describe what an internship looks like
+type Internship = {
+  id: number;
+  company: string;
+  role: string;
+  location: string;
+  deadline: string;
+  status: "Found" | "Applied" | "Interview" | "Offer" | "Rejected";
+};
 
+// 2. Some made-up data (fake companies for now)
+const internships: Internship[] = [
+  { id: 1, company: "Liffey Robotics", role: "Mechanical Design Intern", location: "Dublin", deadline: "2026-12-01", status: "Applied" },
+  { id: 2, company: "Northbound Energy", role: "Engineering Co-op", location: "Toronto, Canada", deadline: "2026-11-30", status: "Found" },
+  { id: 3, company: "Wicklow MedTech", role: "R&D Intern", location: "Bray", deadline: "2026-12-15", status: "Interview" },
+  { id: 4, company: "Alpine Dynamics", role: "Summer Engineering Intern", location: "Boston, USA", deadline: "2027-01-10", status: "Found" },
+  { id: 5, company: "Google", role: "Summer Engineering Intern", location: "Dublin, Ireland", deadline: "2027-01-10", status: "Found" }
+];
+
+// 3. A colour for each status
+const statusColours: Record<Internship["status"], string> = {
+  Found: "bg-gray-100 text-gray-800",
+  Applied: "bg-blue-100 text-blue-800",
+  Interview: "bg-yellow-100 text-yellow-800",
+  Offer: "bg-green-100 text-green-800",
+  Rejected: "bg-red-100 text-red-800",
+};
+
+// 4. The page itself
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-              Internship Tracker
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="mx-auto max-w-5xl p-8">
+      <h1 className="mb-6 text-3xl font-bold">My Internship Tracker</h1>
+
+      <table className="w-full border-collapse text-left">
+        <thead>
+          <tr className="border-b">
+            <th className="py-2">Company</th>
+            <th className="py-2">Role</th>
+            <th className="py-2">Location</th>
+            <th className="py-2">Deadline</th>
+            <th className="py-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {internships.map((job) => (
+            <tr key={job.id} className="border-b">
+              <td className="py-2">{job.company}</td>
+              <td className="py-2">{job.role}</td>
+              <td className="py-2">{job.location}</td>
+              <td className="py-2">{job.deadline}</td>
+              <td className="py-2">
+                <span className={`rounded-full px-2 py-1 text-sm ${statusColours[job.status]}`}>
+                  {job.status}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
   );
 }
