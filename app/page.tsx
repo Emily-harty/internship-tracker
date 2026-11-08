@@ -6,15 +6,16 @@ type Internship = {
   location: string;
   deadline: string;
   status: "Found" | "Applied" | "Interview" | "Offer" | "Rejected";
+  link: string;
 };
 
 // 2. Some made-up data (fake companies for now)
 const internships: Internship[] = [
-  { id: 1, company: "Liffey Robotics", role: "Mechanical Design Intern", location: "Dublin", deadline: "2026-12-01", status: "Applied" },
-  { id: 2, company: "Northbound Energy", role: "Engineering Co-op", location: "Toronto, Canada", deadline: "2026-11-30", status: "Found" },
-  { id: 3, company: "Wicklow MedTech", role: "R&D Intern", location: "Bray", deadline: "2026-12-15", status: "Interview" },
-  { id: 4, company: "Alpine Dynamics", role: "Summer Engineering Intern", location: "Boston, USA", deadline: "2027-01-10", status: "Found" },
-  { id: 5, company: "Google", role: "Summer Engineering Intern", location: "Dublin, Ireland", deadline: "2027-01-10", status: "Found" }
+  { id: 1, company: "Liffey Robotics", role: "Mechanical Design Intern", location: "Dublin", deadline: "2026-12-01", status: "Applied", link: "https://www.workatastartup.com/"},
+  { id: 2, company: "Northbound Energy", role: "Engineering Co-op", location: "Toronto, Canada", deadline: "2026-11-30", status: "Found", link: "https://www.workatastartup.com/"},
+  { id: 3, company: "Wicklow MedTech", role: "R&D Intern", location: "Bray", deadline: "2026-12-15", status: "Interview", link: "https://www.workatastartup.com/" },
+  { id: 4, company: "Alpine Dynamics", role: "Summer Engineering Intern", location: "Boston, USA", deadline: "2027-01-10", status: "Found", link: "https://www.workatastartup.com/" },
+  { id: 5, company: "Google", role: "Summer Engineering Intern", location: "Dublin, Ireland", deadline: "2027-01-10", status: "Found", link: "https://www.workatastartup.com/"}
 ];
 
 // 3. A colour for each status
@@ -40,6 +41,7 @@ export default function Home() {
             <th className="py-2">Location</th>
             <th className="py-2">Deadline</th>
             <th className="py-2">Status</th>
+            <th className="py-2">Link</th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +55,9 @@ export default function Home() {
                 <span className={`rounded-full px-2 py-1 text-sm ${statusColours[job.status]}`}>
                   {job.status}
                 </span>
+              </td>
+              <td className="py-2">
+                <a href={job.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">View</a>
               </td>
             </tr>
           ))}
