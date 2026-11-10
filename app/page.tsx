@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { supabase } from "@/lib/supabase";
+import { addInternship } from "./actions";
 
 type Internship = {
   id: number;
@@ -78,6 +79,29 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-5xl p-8">
       <h1 className="mb-6 text-3xl font-bold">My Internship Tracker</h1>
+      {/* action={addInternship} connects the form to the server action. When you click the button, the browser sends everything to addInternship  */}
+      {/* name="company" and the others are the labels each box sends. They MUST match what action.ts reads formData.get("company")), which in turn matches the database column names.*/}
+      {/*  required means the box is required to be filled out. If it's left empty, the form won't submit. */}
+      {/* type="date" means the box is a date picker. */}
+      {/* type="url" means the box is a URL picker. */}
+      {/* grid grid-cols-2 is Tailwind CSS for a 2-column grid and col-span-2 means it spans both columns. */}
+      <form action={addInternship} className="mb-8 grid grid-cols-2 gap-3 rounded-lg border p-4">
+        <input name="company" placeholder="Company" required className="rounded border px-3 py-2" />
+        <input name="role" placeholder="Role" required className="rounded border px-3 py-2" />
+        <input name="location" placeholder="Location" required className="rounded border px-3 py-2" />
+        <input name="deadline" type="date" className="rounded border px-3 py-2" />
+        <select name="status" defaultValue="Found" className="rounded border px-3 py-2">
+          <option>Found</option>
+          <option>Applied</option>
+          <option>Interview</option>
+          <option>Offer</option>
+          <option>Rejected</option>
+        </select>
+        <input name="link" type="url" placeholder="Link to posting" className="rounded border px-3 py-2" />
+        <button type="submit" className="col-span-2 rounded bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700">
+          Add internship
+        </button>
+</form>
       <Suspense fallback={<p>Loading internships…</p>}>
         <InternshipTable />
       </Suspense>
